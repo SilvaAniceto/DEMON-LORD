@@ -1,0 +1,25 @@
+Lights and Shadows 2D
+
+	1º -> Window -> Package Manager -> Universal RP
+
+	2º -> Create -> Rendering -> Universal Render Pipeline -> Pipeline Asset (Forward Renderer)
+
+	3º -> Edit -> Project Settings -> Graphics -> UniversalRendererPipelineAsset
+
+	* Edit -> Render Pipeline -> Universal Render Pipeline -> Upgrade project Materials to UniversalRP Materials
+
+	4º -> Create -> Rendering -> Universal Render Pipeline -> 2D Renderer (Experimental)
+
+	5º -> Universal RP asset file -> Renderer List field
+
+	* Shadow Caster 2D Component
+
+Cinemachine
+
+	1º -> Window -> Package Manager -> Cinemachine
+
+	2º -> Cinemachine -> Create 2D Camera (CM vcam1)
+
+	3º -> CM vcam1 -> Follow (choose whom to follow)
+
+	4ª -> Cinemachine Confiner (Script) to CM vcam1 -> Polygon Collider
