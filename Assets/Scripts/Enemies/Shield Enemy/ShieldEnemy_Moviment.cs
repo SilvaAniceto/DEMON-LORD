@@ -7,13 +7,13 @@ public class ShieldEnemy_Moviment : MonoBehaviour
     private float sightRange;
     private float backSightRange;
     [HideInInspector] public bool hasSight;
-    [HideInInspector] public float playerDistance;
+    
 
     [SerializeField] private float moveSpeed;
 
     [SerializeField] private Transform sightLine;
     [SerializeField] private Transform backLine;
-    [SerializeField] private Transform player;
+    
 
     [SerializeField] private Animator animator;    
 
@@ -27,10 +27,10 @@ public class ShieldEnemy_Moviment : MonoBehaviour
         backSightRange = transform.position.x - backLine.position.x;
         RaycastHit2D backSight = Physics2D.Raycast(transform.position, Vector2.left, 
             backSightRange, LayerMask.GetMask("Player"));
-        if (backSight.collider != null){
+        if (backSight.collider != null ){
             transform.Rotate(0f, 180f, 0f);
         }
-
+        
         sightRange = sightLine.position.x - transform.position.x;
         RaycastHit2D sight = Physics2D.Raycast(transform.position, Vector2.right,
             sightRange, LayerMask.GetMask("Player"));
@@ -42,7 +42,7 @@ public class ShieldEnemy_Moviment : MonoBehaviour
         }
 
         
-        playerDistance = Mathf.Abs(transform.position.x - player.position.x);
+        
         if (hasSight && !GetComponent<ShieldEnemy_Combat>().blocking &&
             !GetComponent<ShieldEnemy_Combat>().attacking){
             Move();

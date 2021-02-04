@@ -2,26 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShieldEnemy_Combat : MonoBehaviour , IEnemyCombat
+public class ShieldEnemy_Combat : MonoBehaviour , IEnemyCombat, IDealDamage
 {
     [SerializeField] private Animator animator;
 
+    [SerializeField] private GameObject blockFlash;
     [SerializeField] private Transform attackPoint;
     [SerializeField] private float attackRange;
-
+    private int attackDamage = 1;
     public bool blocking { get; set; }
 
     [HideInInspector] public bool attacking;
     [SerializeField] private float attackTime;
     private float attackTimer;
+
+    [SerializeField] private Transform player;
+    [HideInInspector] public float playerDistance;
     // Start is called before the first frame update
     void Start(){
         attackTimer = attackTime;        
     }
 
     // Update is called once per frame
-    void FixedUpdate(){  
-        if (GetComponent<ShieldEnemy_Moviment>().playerDistance <= 2.0f && GetComponent<ShieldEnemy_Moviment>().hasSight && !attacking){
+    void FixedUpdate(){
+        playerDistance = Mathf.Abs(transform.position.x - player.position.x);
+        if (playerDistance <= 2.0f && GetComponent<ShieldEnemy_Moviment>().hasSight && !attacking){
             blocking = true;
             animator.SetBool("Block", blocking);           
         }
@@ -50,6 +55,15 @@ public class ShieldEnemy_Combat : MonoBehaviour , IEnemyCombat
 
         attacking = false;        
         animator.SetBool("Attack", attacking);
+    }
+
+    public void DealDamage() {
+        Collider2D hit = Physics2D.OverlapCircle(attackPoint.position, attackRange, LayerMask.GetMask("Player"));
+        if (hit != null) {
+            Character_Combat p = hit.GetComponent<Character_Combat>();            
+            p.DamageTaken(attackDamage);
+            
+        }
     }
 
     private void OnDrawGizmos() {

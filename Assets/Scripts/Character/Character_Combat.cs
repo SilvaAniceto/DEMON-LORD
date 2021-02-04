@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character_Combat : MonoBehaviour
+public class Character_Combat : MonoBehaviour, IDealDamage
 {
     [SerializeField] private Animator animator;
+    [HideInInspector] public Rigidbody2D body;
 
     [SerializeField] private bool comboEnabled = false;
 
@@ -18,13 +19,17 @@ public class Character_Combat : MonoBehaviour
 
     private float swordRange = 0.8f;
 
-    Vector2 push;
+    [HideInInspector] public Vector2 push;
 
     [SerializeField] private GameObject blockFlash;
-   
+
+    [SerializeField] private int maxHealth;
+    private int currentHealth;
+
     // Start is called before the first frame update
     void Start(){
-        
+        currentHealth = maxHealth;
+        body = gameObject.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -61,7 +66,7 @@ public class Character_Combat : MonoBehaviour
         attacking = false;
 
     }
-    void InflictDamage(){        
+    public void DealDamage(){        
         Collider2D hit = Physics2D.OverlapCircle(attackPoint.position, swordRange, LayerMask.GetMask("Enemies"));
         if (hit != null ){
             IEnemyCombat enemy = hit.GetComponent<IEnemyCombat>();
@@ -76,6 +81,22 @@ public class Character_Combat : MonoBehaviour
         }
     }
 
+    public void DamageTaken(int damage) {
+        if (shieldIsUp) {
+            animator.SetTrigger("Block");
+            Debug.Log("block");
+        }
+        else {
+            animator.SetTrigger("Hit");
+            currentHealth -= damage;
+            if (currentHealth <= 0) {
+                animator.SetTrigger("Die");
+                gameObject.GetComponent<Character_Controller>().enabled = false;
+                gameObject.GetComponent<CircleCollider2D>().enabled = false;
+            }
+        }
+        body.AddForce(Vector2.left * 3.0f * push, ForceMode2D.Impulse);
+    }
     void OnDrawGizmos(){
         Gizmos.DrawWireSphere(attackPoint.position, swordRange);        
     }
