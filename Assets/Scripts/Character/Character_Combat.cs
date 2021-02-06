@@ -23,23 +23,43 @@ public class Character_Combat : MonoBehaviour, IDealDamage
 
     [SerializeField] private GameObject blockFlash;
 
-    [SerializeField] private int maxHealth;
-    private int currentHealth;
+    [SerializeField] private float maxHealth;
+    [SerializeField] private float currentHealth;
+
+    [SerializeField] private float maxStamina;
+    [SerializeField] private float currentStamina;
+
+    [SerializeField] private float time;
+    [SerializeField] private float timer;
+
 
     // Start is called before the first frame update
     void Start(){
         currentHealth = maxHealth;
+        currentStamina = maxStamina;
         body = gameObject.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void FixedUpdate(){
+        Debug.Log(timer);
         push = gameObject.GetComponent<Character_Controller>().faceDirection;
         if (Input.GetButtonDown("Attack"))
         {
-            animator.SetTrigger("Attack");
-            StartCoroutine("Attacking");
+            if (currentStamina >= 2.0f) {
+                currentStamina -= 2.0f;
+                timer = time;
+                animator.SetTrigger("Attack");
+                StartCoroutine("Attacking");
+            }
         }
+        if (currentStamina < maxStamina) {
+            timer -= Time.fixedDeltaTime;
+            if (timer <= 0) {
+                currentStamina += Time.fixedDeltaTime;                
+            }
+        }
+        HuD_Script.instance.StaminaValue(currentStamina / maxStamina);
 
         if (comboEnabled)
         {
@@ -55,7 +75,7 @@ public class Character_Combat : MonoBehaviour, IDealDamage
         {
             shieldIsUp = false;
             animator.SetBool("ShieldUp", shieldIsUp);
-        }        
+        }         
     }   
 
     IEnumerator Attacking(){
@@ -75,7 +95,7 @@ public class Character_Combat : MonoBehaviour, IDealDamage
                 damaging.TakeDamage(attackDamage, gameObject.GetComponent<Character_Controller>().flipSide, push);
             }
             else if (attacking && enemy.blocking) {
-                gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.left * 5.0f * push, ForceMode2D.Impulse);
+                gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.left * 2.5f * push, ForceMode2D.Impulse);
                 Instantiate(blockFlash, attackPoint.position, Quaternion.identity);
             }
         }
@@ -84,7 +104,8 @@ public class Character_Combat : MonoBehaviour, IDealDamage
     public void DamageTaken(int damage) {
         if (shieldIsUp) {
             animator.SetTrigger("Block");
-            Debug.Log("block");
+            currentStamina -= 1.0f;
+            timer = time;
         }
         else {
             animator.SetTrigger("Hit");
@@ -95,8 +116,12 @@ public class Character_Combat : MonoBehaviour, IDealDamage
                 gameObject.GetComponent<CircleCollider2D>().enabled = false;
             }
         }
-        body.AddForce(Vector2.left * 3.0f * push, ForceMode2D.Impulse);
+        body.AddForce(Vector2.left * 2.5f * push, ForceMode2D.Impulse);
+        HuD_Script.instance.HealthValue(currentHealth / maxHealth);
     }
+
+    
+
     void OnDrawGizmos(){
         Gizmos.DrawWireSphere(attackPoint.position, swordRange);        
     }
