@@ -10,6 +10,9 @@ public class HuD_Script : MonoBehaviour
     public Image maskHealth;
     public Image maskStamina;
 
+    public Image healthBar;
+    public Image staminaBar;
+
     float healthSize;
     float staminaSize;
 
@@ -23,10 +26,10 @@ public class HuD_Script : MonoBehaviour
     }
 
     public void HealthValue(float value) {
-        maskHealth.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, healthSize * value);
+        healthBar.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, healthSize * value);
     }
 
     public void StaminaValue(float value) {
-        maskStamina.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, staminaSize * value);
+        staminaBar.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, staminaSize * value);
     }
 }
