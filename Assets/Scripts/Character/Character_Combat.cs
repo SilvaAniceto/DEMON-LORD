@@ -46,7 +46,7 @@ public class Character_Combat : MonoBehaviour, IDealDamage
         push = gameObject.GetComponent<Character_Controller>().faceDirection;
         if (Input.GetButtonDown("Attack"))
         {
-            if (currentStamina >= 2.0f) {
+            if (currentStamina >= 1.0f) {
                 currentStamina -= 2.0f;
                 timer = time;
                 animator.SetTrigger("Attack");
@@ -114,6 +114,7 @@ public class Character_Combat : MonoBehaviour, IDealDamage
                 animator.SetTrigger("Die");
                 gameObject.GetComponent<Character_Controller>().enabled = false;
                 gameObject.GetComponent<CircleCollider2D>().enabled = false;
+                this.enabled = false;
             }
         }
         body.AddForce(Vector2.left * 2.5f * push, ForceMode2D.Impulse);

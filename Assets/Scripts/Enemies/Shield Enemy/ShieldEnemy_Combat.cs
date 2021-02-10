@@ -5,8 +5,7 @@ using UnityEngine;
 public class ShieldEnemy_Combat : MonoBehaviour , IEnemyCombat, IDealDamage
 {
     [SerializeField] private Animator animator;
-
-    [SerializeField] private GameObject blockFlash;
+        
     [SerializeField] private Transform attackPoint;
     [SerializeField] private float attackRange;
     private int attackDamage = 1;

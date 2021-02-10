@@ -22,18 +22,10 @@ public class Enemy_Health : MonoBehaviour, ITakeDamage
         if (currentHealth <= 0) {
             animator.SetTrigger("Die");
             gameObject.GetComponent<ShieldEnemy_Moviment>().enabled = false;
-
-            StartCoroutine("Destroy");
+            Destroy(gameObject,3.0f);
         }
         else { 
-            body.AddForce(Vector2.right * 3.5f * push, ForceMode2D.Impulse);
+            body.AddForce(Vector2.right * 2.5f * push, ForceMode2D.Impulse);
         }
     }
-
-    public IEnumerator Destroy() {
-        yield return new WaitForSeconds(3.0f);
-
-        Destroy(gameObject);
-    }
-
 }
