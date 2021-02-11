@@ -41,8 +41,7 @@ public class Character_Combat : MonoBehaviour, IDealDamage
     }
 
     // Update is called once per frame
-    void FixedUpdate(){
-        Debug.Log(timer);
+    void FixedUpdate(){        
         push = gameObject.GetComponent<Character_Controller>().faceDirection;
         if (Input.GetButtonDown("Attack"))
         {
@@ -101,10 +100,10 @@ public class Character_Combat : MonoBehaviour, IDealDamage
         }
     }
 
-    public void DamageTaken(int damage) {
+    public void DamageTaken(int damage, float stamina) {
         if (shieldIsUp) {
             animator.SetTrigger("Block");
-            currentStamina -= 1.0f;
+            currentStamina -= stamina;
             timer = time;
         }
         else {

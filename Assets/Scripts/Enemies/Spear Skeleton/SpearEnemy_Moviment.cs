@@ -12,6 +12,8 @@ public class SpearEnemy_Moviment : MonoBehaviour
 
     [SerializeField] private Transform sightLine;
     [SerializeField] private Transform backLine;
+
+    [SerializeField] private Animator animator;
     
     [SerializeField] private float changeTime = 3.0f;
     private float timer;
@@ -34,17 +36,21 @@ public class SpearEnemy_Moviment : MonoBehaviour
         sightRange = sightLine.position.x - transform.position.x;
         RaycastHit2D sight = Physics2D.Raycast(transform.position, Vector2.right,
             sightRange, LayerMask.GetMask("Player"));
-        if (sight.collider != null) {
+        if (sight.collider != null && !GetComponent<SpearEnemy_Combat>().attacking) {
             Follow();
             hasSight = true;
         }
-        else {
+        else if(sight.collider == null && !GetComponent<SpearEnemy_Combat>().attacking) {
             Move();
             hasSight = false;
+        }
+        else {
+            GetComponent<SpearEnemy_Combat>().attacking = false;
         }
     }
 
     public void Move() {
+        animator.SetBool("Move", true);
         transform.Translate(moveSpeed * Time.fixedDeltaTime, 0f, 0f);
         timer -= Time.fixedDeltaTime;
         if (timer <= 0) {
@@ -54,6 +60,7 @@ public class SpearEnemy_Moviment : MonoBehaviour
     }
 
     public void Follow() {
+        animator.SetBool("Move", true);
         transform.Translate(moveSpeed * Time.fixedDeltaTime, 0f, 0f);
     }
 

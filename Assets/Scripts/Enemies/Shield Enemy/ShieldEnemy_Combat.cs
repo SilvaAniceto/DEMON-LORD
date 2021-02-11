@@ -60,7 +60,7 @@ public class ShieldEnemy_Combat : MonoBehaviour , IEnemyCombat, IDealDamage
         Collider2D hit = Physics2D.OverlapCircle(attackPoint.position, attackRange, LayerMask.GetMask("Player"));
         if (hit != null) {
             Character_Combat p = hit.GetComponent<Character_Combat>();            
-            p.DamageTaken(attackDamage);
+            p.DamageTaken(attackDamage, 1.0f);
             
         }
     }
