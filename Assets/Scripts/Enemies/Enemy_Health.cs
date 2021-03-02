@@ -21,7 +21,7 @@ public class Enemy_Health : MonoBehaviour, ITakeDamage
         currentHealth -= damage;
         if (currentHealth <= 0) {
             animator.SetTrigger("Die");
-            //gameObject.GetComponent<ShieldEnemy_Moviment>().enabled = false;
+            gameObject.GetComponent<Enemy_Moviment>().enabled = false;
             Destroy(gameObject,3.0f);
         }
         else { 

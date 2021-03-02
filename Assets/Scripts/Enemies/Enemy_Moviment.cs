@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpearEnemy_Moviment : MonoBehaviour
+public class Enemy_Moviment : MonoBehaviour
 {
+
+    public enum Moviment { Patrol, Move, Steady };
+    public Moviment moviment;
+
     private float sightRange;
     private float backSightRange;
     [HideInInspector] public bool hasSight;
@@ -14,18 +18,16 @@ public class SpearEnemy_Moviment : MonoBehaviour
     [SerializeField] private Transform backLine;
 
     [SerializeField] private Animator animator;
-    
+
     [SerializeField] private float changeTime = 3.0f;
     private float timer;
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         timer = changeTime;
     }
 
     // Update is called once per frame
-    void FixedUpdate()
-    {
+    void FixedUpdate() {
         backSightRange = transform.position.x - backLine.position.x;
         RaycastHit2D backSight = Physics2D.Raycast(transform.position, Vector2.left,
             backSightRange, LayerMask.GetMask("Player"));
@@ -36,20 +38,38 @@ public class SpearEnemy_Moviment : MonoBehaviour
         sightRange = sightLine.position.x - transform.position.x;
         RaycastHit2D sight = Physics2D.Raycast(transform.position, Vector2.right,
             sightRange, LayerMask.GetMask("Player"));
-        if (sight.collider != null && !GetComponent<SpearEnemy_Combat>().attacking) {
-            Follow();
+        if (sight.collider != null) {
             hasSight = true;
         }
-        else if(sight.collider == null && !GetComponent<SpearEnemy_Combat>().attacking) {
-            Move();
+        else {
             hasSight = false;
         }
-        else {
-            GetComponent<SpearEnemy_Combat>().attacking = false;
-        }
-    }
 
-    public void Move() {
+        if (moviment == Moviment.Patrol) {
+            if (!hasSight && !GetComponent<Enemy_Combat>().blocking && !GetComponent<Enemy_Combat>().attacking) {
+                Patrol();
+            }else if(hasSight && !GetComponent<Enemy_Combat>().blocking && !GetComponent<Enemy_Combat>().attacking) {
+                Move();
+            }else {
+                animator.SetBool("Move", false);
+            }
+        }
+
+        if (moviment == Moviment.Move ) {
+            if (hasSight && !GetComponent<Enemy_Combat>().blocking && !GetComponent<Enemy_Combat>().attacking) {
+                Move();
+            }else {
+                animator.SetBool("Move", false);
+            }
+        }
+
+        if (moviment == Moviment.Steady) {
+            return;
+        }
+        
+        
+    }
+    public void Patrol() {
         animator.SetBool("Move", true);
         transform.Translate(moveSpeed * Time.fixedDeltaTime, 0f, 0f);
         timer -= Time.fixedDeltaTime;
@@ -58,12 +78,10 @@ public class SpearEnemy_Moviment : MonoBehaviour
             timer = changeTime;
         }
     }
-
-    public void Follow() {
-        animator.SetBool("Move", true);
+    public void Move() {
         transform.Translate(moveSpeed * Time.fixedDeltaTime, 0f, 0f);
+        animator.SetBool("Move", true);
     }
-
     private void OnDrawGizmos() {
         Gizmos.DrawLine(transform.position, backLine.position);
 

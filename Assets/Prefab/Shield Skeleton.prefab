@@ -43,9 +43,9 @@ GameObject:
   - component: {fileID: 2868408074795483237}
   - component: {fileID: 2868408074795483243}
   - component: {fileID: 2868408074795483241}
-  - component: {fileID: 2868408074795483238}
-  - component: {fileID: 2868408074795483240}
   - component: {fileID: 2868408074795483242}
+  - component: {fileID: 8176711382001165486}
+  - component: {fileID: 3314062457414788192}
   m_Layer: 8
   m_Name: Shield Skeleton
   m_TagString: Untagged
@@ -186,44 +186,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.18200383, y: 0.45034876}
   m_EdgeRadius: 0
---- !u!114 &2868408074795483238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2868408074795483234}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea51f2308cb599a46b6dda943ce830a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hasSight: 0
-  moveSpeed: 2
-  sightLine: {fileID: 2868408075476942366}
-  backLine: {fileID: 2868408075051153951}
-  animator: {fileID: 2868408074795483237}
---- !u!114 &2868408074795483240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2868408074795483234}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdc61d03b06cc7a49838ea2ed11bbcad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 2868408074795483237}
-  blockFlash: {fileID: 5747493967257253543, guid: a1695a361f3d2f34baf724059dbe91cc,
-    type: 3}
-  attackPoint: {fileID: 2868408074278169882}
-  attackRange: 0.8
-  attacking: 0
-  attackTime: 1
-  player: {fileID: 0}
-  playerDistance: 0
 --- !u!114 &2868408074795483242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,6 +201,46 @@ MonoBehaviour:
   maxHealth: 3
   currentHealth: 0
   animator: {fileID: 2868408074795483237}
+--- !u!114 &8176711382001165486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2868408074795483234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9cec485ee69c5e4c8120c442d66802c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moviment: 1
+  hasSight: 0
+  moveSpeed: 2
+  sightLine: {fileID: 2868408075476942366}
+  backLine: {fileID: 2868408075051153951}
+  animator: {fileID: 2868408074795483237}
+  changeTime: 3
+--- !u!114 &3314062457414788192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2868408074795483234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa00f9305e9a6ca41a7b0c7fb5e28ec0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  combatType: 0
+  animator: {fileID: 2868408074795483237}
+  attackPoint: {fileID: 2868408074278169882}
+  attackRange: 0.8
+  staminaDamage: 1
+  attacking: 0
+  player: {fileID: 0}
+  playerDistance: 0
+  attackTime: 1
 --- !u!1 &2868408075051153948
 GameObject:
   m_ObjectHideFlags: 0

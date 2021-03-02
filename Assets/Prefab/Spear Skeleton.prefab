@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 7022244406538683554}
   - component: {fileID: 7022244406538683555}
   - component: {fileID: 7022244406538683552}
-  - component: {fileID: 7022244406538683613}
-  - component: {fileID: 7022244406538683612}
   - component: {fileID: 7022244406538683614}
   - component: {fileID: 7022244406538683615}
   - component: {fileID: 7022244406538683609}
+  - component: {fileID: 2688178305324073389}
+  - component: {fileID: 903433810142869489}
   m_Layer: 8
   m_Name: Spear Skeleton
   m_TagString: Untagged
@@ -109,43 +109,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7022244406538683613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7022244406538683553}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fcb50f0c1711de4fa2b1329cf0e1e81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hasSight: 0
-  moveSpeed: 2
-  sightLine: {fileID: 7022244407598961410}
-  backLine: {fileID: 7022244407167709097}
-  animator: {fileID: 7022244406538683552}
-  changeTime: 3
---- !u!114 &7022244406538683612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7022244406538683553}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd2884844531faf46b67fa643b61dcb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 7022244406538683552}
-  attackPoint: {fileID: 7022244407823650025}
-  attackRange: 1
-  attacking: 0
-  player: {fileID: 0}
-  playerDistance: 0
-  attackTime: 2
 --- !u!50 &7022244406538683614
 Rigidbody2D:
   serializedVersion: 4
@@ -208,6 +171,46 @@ MonoBehaviour:
   maxHealth: 3
   currentHealth: 0
   animator: {fileID: 7022244406538683552}
+--- !u!114 &2688178305324073389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7022244406538683553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9cec485ee69c5e4c8120c442d66802c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moviment: 0
+  hasSight: 0
+  moveSpeed: 2
+  sightLine: {fileID: 7022244407598961410}
+  backLine: {fileID: 7022244407167709097}
+  animator: {fileID: 7022244406538683552}
+  changeTime: 3
+--- !u!114 &903433810142869489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7022244406538683553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa00f9305e9a6ca41a7b0c7fb5e28ec0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  combatType: 1
+  animator: {fileID: 7022244406538683552}
+  attackPoint: {fileID: 7022244407823650025}
+  attackRange: 1
+  staminaDamage: 0.5
+  attacking: 0
+  player: {fileID: 0}
+  playerDistance: 0
+  attackTime: 1.5
 --- !u!1 &7022244407167709102
 GameObject:
   m_ObjectHideFlags: 0
