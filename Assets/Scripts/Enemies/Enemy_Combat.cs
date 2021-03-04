@@ -80,20 +80,12 @@ public class Enemy_Combat : MonoBehaviour, IEnemyCombat, IDealDamage
             attacking = true;
             StartCoroutine("Attack");
         }
-
-        /*if (attacking) {
-            attackTimer -= Time.fixedDeltaTime;
-            if (attackTimer < 0) {
-                StartCoroutine("Attack");
-            }
-        }*/
     }
     public void DealDamage() {
         Collider2D hit = Physics2D.OverlapCircle(attackPoint.position, attackRange, LayerMask.GetMask("Player"));
         if (hit != null) {
             Character_Combat p = hit.GetComponent<Character_Combat>();
             p.DamageTaken(attackDamage, staminaDamage);
-
         }
     }
     public IEnumerator Attack() {
