@@ -55,7 +55,7 @@ public class Character_Combat : MonoBehaviour, IDealDamage
         if (currentStamina < maxStamina) {
             timer -= Time.fixedDeltaTime;
             if (timer <= 0) {
-                currentStamina += Time.fixedDeltaTime;                
+                currentStamina += Time.fixedDeltaTime * 2;                
             }
         }
         HuD_Script.instance.StaminaValue(currentStamina / maxStamina);

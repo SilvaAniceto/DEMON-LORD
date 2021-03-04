@@ -64,7 +64,9 @@ public class Enemy_Moviment : MonoBehaviour
         }
 
         if (moviment == Moviment.Steady) {
-            return;
+            if (hasSight) {
+                transform.Translate(moveSpeed * Time.fixedDeltaTime, 0f, 0f);
+            }
         }
         
         

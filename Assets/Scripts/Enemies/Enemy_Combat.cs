@@ -76,16 +76,17 @@ public class Enemy_Combat : MonoBehaviour, IEnemyCombat, IDealDamage
         }
     }
     public void SlimeCombat() {
-        if (playerDistance < 2 && GetComponent<Enemy_Moviment>().hasSight == true && attacking == false) {
+        if (playerDistance < 3 && GetComponent<Enemy_Moviment>().hasSight == true && attacking == false) {
             attacking = true;
+            StartCoroutine("Attack");
         }
 
-        if (attacking) {
+        /*if (attacking) {
             attackTimer -= Time.fixedDeltaTime;
             if (attackTimer < 0) {
                 StartCoroutine("Attack");
             }
-        }
+        }*/
     }
     public void DealDamage() {
         Collider2D hit = Physics2D.OverlapCircle(attackPoint.position, attackRange, LayerMask.GetMask("Player"));
