@@ -44,7 +44,7 @@ public class Character_Combat : MonoBehaviour, IDealDamage
     // Update is called once per frame
     void FixedUpdate(){        
         push = gameObject.GetComponent<Character_Controller>().faceDirection;
-        if (Input.GetButtonDown("Attack"))
+        if (Input.GetButtonDown("Attack") && GetComponent<Character_Controller>().grounded == true)
         {
             if (currentStamina >= 1.0f) {
                 currentStamina -= staminaCost;

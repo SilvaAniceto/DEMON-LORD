@@ -30,6 +30,7 @@ public class Abomination_Moviment : MonoBehaviour
         RaycastHit2D backSight = Physics2D.Raycast(transform.position, Vector2.left,
             backSightRange, LayerMask.GetMask("Player"));
         if (backSight.collider != null) {
+            isFlip = !isFlip;
             Flip();
         }
 

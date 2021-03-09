@@ -10,7 +10,7 @@ public class Character_Controller : MonoBehaviour
 
     [SerializeField] private Animator animator;
 
-    [SerializeField] private bool grounded = true;
+    public bool grounded = true;
     [SerializeField] private bool rolling = true;
     [SerializeField] private bool wallSliding = false;
 

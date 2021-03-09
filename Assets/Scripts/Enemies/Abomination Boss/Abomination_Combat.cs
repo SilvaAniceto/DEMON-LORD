@@ -21,7 +21,6 @@ public class Abomination_Combat : MonoBehaviour,IEnemyCombat, IDealDamage
     public Transform spawnPosition;
 
     [SerializeField] Transform target;
-
     public bool blocking { get; set; }
 
     // Start is called before the first frame update
