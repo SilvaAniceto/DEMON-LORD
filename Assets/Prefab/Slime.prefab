@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 6350203781075776450}
   m_Layer: 8
   m_Name: Slime
-  m_TagString: Untagged
+  m_TagString: Slime
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -258,7 +258,7 @@ MonoBehaviour:
   attackRange: 1
   staminaDamage: 2
   attacking: 0
-  player: {fileID: 0}
+  player: {fileID: 7677864454179481782, guid: c425d4a6673c52e439c58adce7dfbb55, type: 3}
   playerDistance: 0
   attackTime: 0.8
 --- !u!1 &8078010870392140944

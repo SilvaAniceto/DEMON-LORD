@@ -28,6 +28,7 @@ public class Character_Combat : MonoBehaviour, IDealDamage
 
     [SerializeField] private float maxStamina;
     [SerializeField] private float currentStamina;
+    [SerializeField] private float staminaCost;
 
     [SerializeField] private float time;
     [SerializeField] private float timer;
@@ -46,7 +47,7 @@ public class Character_Combat : MonoBehaviour, IDealDamage
         if (Input.GetButtonDown("Attack"))
         {
             if (currentStamina >= 1.0f) {
-                currentStamina -= 2.0f;
+                currentStamina -= staminaCost;
                 timer = time;
                 animator.SetTrigger("Attack");
                 StartCoroutine("Attacking");
@@ -63,6 +64,10 @@ public class Character_Combat : MonoBehaviour, IDealDamage
         if (comboEnabled)
         {
             animator.SetBool("Combo", comboEnabled);
+            staminaCost = 1.0f;
+        }
+        else {
+            staminaCost = 2.0f;
         }
 
         if (Input.GetButton("Block"))
@@ -119,9 +124,6 @@ public class Character_Combat : MonoBehaviour, IDealDamage
         body.AddForce(Vector2.left * 2.5f * push, ForceMode2D.Impulse);
         HuD_Script.instance.HealthValue(currentHealth / maxHealth);
     }
-
-    
-
     void OnDrawGizmos(){
         Gizmos.DrawWireSphere(attackPoint.position, swordRange);        
     }

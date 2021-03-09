@@ -6,29 +6,31 @@ public class Abomination_Moviment : MonoBehaviour
 {
     private float sightRange;
     private float backSightRange;
+
     [HideInInspector] public bool hasSight;
 
-    [SerializeField] private float moveSpeed;
+    [HideInInspector] public bool isFlip = false;
+
+    public float moveSpeed;
 
     [SerializeField] private Transform sightLine;
     [SerializeField] private Transform backLine;
 
     [SerializeField] private Animator animator;
 
-    [SerializeField] private float changeTime = 3.0f;
-    private float timer;
+    [SerializeField] private Transform player;
+   
     // Start is called before the first frame update
     void Start() {
-        timer = changeTime;
+        
     }
-
     // Update is called once per frame
     void FixedUpdate() {
         backSightRange = transform.position.x - backLine.position.x;
         RaycastHit2D backSight = Physics2D.Raycast(transform.position, Vector2.left,
             backSightRange, LayerMask.GetMask("Player"));
         if (backSight.collider != null) {
-            transform.Rotate(0f, 180f, 0f);
+            Flip();
         }
 
         sightRange = sightLine.position.x - transform.position.x;
@@ -42,29 +44,24 @@ public class Abomination_Moviment : MonoBehaviour
         }
 
         if (hasSight) {
-            if (GetComponent<Abomination_Combat>().playerDistance > 3.0f) {
-                transform.Translate(moveSpeed * Time.fixedDeltaTime, 0f, 0f);
-                animator.SetBool("Move", true);
-            }
-            else if(GetComponent<Abomination_Combat>().playerDistance <= 3.0f) {
-                animator.SetBool("Move", false);
-                GetComponent<Abomination_Combat>().attacking = true;
-            }
+            animator.SetBool("Move",true);
         }
-        else if (!hasSight) {            
-            animator.SetBool("Move", true);
-            transform.Translate(moveSpeed * Time.fixedDeltaTime, 0f, 0f);
-            timer -= Time.fixedDeltaTime;
-            if (timer <= 0) {
-                transform.Rotate(0f, 180f, 0f);
-                timer = changeTime;
-            }            
+        else if (!hasSight) {
+            animator.SetBool("Move", false);            
+        }        
+    }
+    public void Flip() {
+        if (transform.position.x > player.position.x && isFlip) {
+            transform.Rotate(0f, 180f, 0f);
+            isFlip = false;
         }
-        
+        else if (transform.position.x < player.position.x && !isFlip) {
+            transform.Rotate(0f, 180f, 0f);
+            isFlip = true;
+        }
     }
     private void OnDrawGizmos() {
-        Gizmos.DrawLine(transform.position, backLine.position);
-
         Gizmos.DrawLine(transform.position, sightLine.position);
+        Gizmos.DrawLine(transform.position, backLine.position);
     }
 }

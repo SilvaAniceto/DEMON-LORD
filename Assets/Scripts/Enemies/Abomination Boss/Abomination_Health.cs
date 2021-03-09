@@ -6,6 +6,7 @@ public class Abomination_Health : MonoBehaviour, ITakeDamage
 {
     public int maxHealth;
     public int currentHealth;
+    public bool spawnSlime = false;
 
     private Rigidbody2D body;
     [SerializeField] private Animator animator;
@@ -18,7 +19,11 @@ public class Abomination_Health : MonoBehaviour, ITakeDamage
     public void TakeDamage(int damage, bool side, Vector2 push) {
         animator.SetTrigger("Hit");
         currentHealth -= damage;
+        if (currentHealth <= (maxHealth /2)) {
+            spawnSlime = true; 
+        }
         if (currentHealth <= 0) {
+            this.enabled = false;
             animator.SetTrigger("Die");
             gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
             gameObject.GetComponent<Abomination_Moviment>().enabled = false;
