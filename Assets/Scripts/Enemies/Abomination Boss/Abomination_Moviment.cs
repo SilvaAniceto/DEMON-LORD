@@ -19,7 +19,11 @@ public class Abomination_Moviment : MonoBehaviour
     [SerializeField] private Animator animator;
 
     [SerializeField] private Transform player;
-   
+
+    void Awake() {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+
     // Start is called before the first frame update
     void Start() {
         

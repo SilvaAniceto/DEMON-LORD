@@ -18,7 +18,7 @@ public class Charge : MonoBehaviour
     }
 
     public void ChargeShoot(Vector2 dir) {
-        rgbd2.AddForce(dir * 100.0f);
+        rgbd2.AddForce(dir * 100.0f,ForceMode2D.Force);
     }
 
     void OnTriggerEnter2D(Collider2D other) {

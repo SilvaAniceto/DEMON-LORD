@@ -23,6 +23,10 @@ public class Abomination_Combat : MonoBehaviour,IEnemyCombat, IDealDamage
     [SerializeField] Transform target;
     public bool blocking { get; set; }
 
+    void Awake() {
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+
     // Start is called before the first frame update
     void Start(){
         

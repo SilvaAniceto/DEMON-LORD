@@ -222,11 +222,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasSight: 0
   isFlip: 0
-  moveSpeed: 3.5
+  moveSpeed: 4
   sightLine: {fileID: 7888918121202935324}
   backLine: {fileID: 7888918121233466052}
   animator: {fileID: 7888918120403773598}
-  player: {fileID: 7677864454179481782, guid: c425d4a6673c52e439c58adce7dfbb55, type: 3}
+  player: {fileID: 0}
 --- !u!114 &7888918120403773586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,7 +246,7 @@ MonoBehaviour:
   slime: {fileID: 6409769523411585585, guid: 5425f810c5d1d2542873107ce4c46130, type: 3}
   charge: {fileID: 7056576152753880206, guid: f75599cadc3754746abd48bc62bd46f0, type: 3}
   spawnPosition: {fileID: 7888918119906673002}
-  target: {fileID: 7677864454179481782, guid: c425d4a6673c52e439c58adce7dfbb55, type: 3}
+  target: {fileID: 0}
 --- !u!114 &7888918120403773587
 MonoBehaviour:
   m_ObjectHideFlags: 0

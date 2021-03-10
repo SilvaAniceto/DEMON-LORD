@@ -24,6 +24,9 @@ public class Enemy_Combat : MonoBehaviour, IEnemyCombat, IDealDamage
     [SerializeField] private float attackTime;
     private float attackTimer;
 
+    void Awake() {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
     // Start is called before the first frame update
     void Start() {
         attackTimer = attackTime;

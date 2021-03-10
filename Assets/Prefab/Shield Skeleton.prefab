@@ -238,7 +238,7 @@ MonoBehaviour:
   attackRange: 0.8
   staminaDamage: 1
   attacking: 0
-  player: {fileID: 7677864454179481782, guid: c425d4a6673c52e439c58adce7dfbb55, type: 3}
+  player: {fileID: 0}
   playerDistance: 0
   attackTime: 1
 --- !u!1 &2868408075051153948

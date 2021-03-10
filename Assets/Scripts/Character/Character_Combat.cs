@@ -12,7 +12,7 @@ public class Character_Combat : MonoBehaviour, IDealDamage
     private int attackDamage = 1;
 
     [HideInInspector] public bool shieldIsUp;
-
+    [SerializeField] private bool rolling = true;
     [HideInInspector] public bool attacking;
 
     [SerializeField] private Transform attackPoint;
@@ -53,6 +53,17 @@ public class Character_Combat : MonoBehaviour, IDealDamage
                 StartCoroutine("Attacking");
             }
         }
+
+        if (Input.GetButtonDown("Roll") && rolling && GetComponent<Character_Controller>().grounded) {
+            if (currentStamina >= 0.5f) {
+                currentStamina -= 0.75f;
+                timer = time;
+                rolling = false;
+                StartCoroutine("Roll");
+            }
+            
+        }
+
         if (currentStamina < maxStamina) {
             timer -= Time.fixedDeltaTime;
             if (timer <= 0) {
@@ -80,8 +91,18 @@ public class Character_Combat : MonoBehaviour, IDealDamage
             shieldIsUp = false;
             animator.SetBool("ShieldUp", shieldIsUp);
         }         
-    }   
+    }
+    IEnumerator Roll() {
+        body.AddForce(new Vector2(GetComponent<Character_Controller>().moveInput * 8.0f, 0f), ForceMode2D.Impulse);
+        animator.SetBool("Roll", true);
+        GetComponent<CircleCollider2D>().enabled = false;
 
+        yield return new WaitForSeconds(0.9f);
+
+        animator.SetBool("Roll", false);
+        GetComponent<CircleCollider2D>().enabled = true;
+        rolling = true;
+    }
     IEnumerator Attacking(){
         attacking = true;
 
@@ -91,16 +112,19 @@ public class Character_Combat : MonoBehaviour, IDealDamage
 
     }
     public void DealDamage(){        
-        Collider2D hit = Physics2D.OverlapCircle(attackPoint.position, swordRange, LayerMask.GetMask("Enemies"));
-        if (hit != null ){
-            IEnemyCombat enemy = hit.GetComponent<IEnemyCombat>();
-            if(attacking && !enemy.blocking) { 
-                ITakeDamage damaging = hit.GetComponent<ITakeDamage>(); 
-                damaging.TakeDamage(attackDamage, gameObject.GetComponent<Character_Controller>().flipSide, push);
-            }
-            else if (attacking && enemy.blocking) {
-                gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.left * 2.5f * push, ForceMode2D.Impulse);
-                Instantiate(blockFlash, attackPoint.position, Quaternion.identity);
+        
+        Collider2D[] hit = Physics2D.OverlapCircleAll(attackPoint.position, swordRange, LayerMask.GetMask("Enemies"));
+        foreach (Collider2D e in hit) {
+            if (hit != null) {             
+                IEnemyCombat enemy = e.GetComponent<IEnemyCombat>();
+                if (attacking && !enemy.blocking) {
+                    ITakeDamage damaging = e.GetComponent<ITakeDamage>();
+                    damaging.TakeDamage(attackDamage, gameObject.GetComponent<Character_Controller>().flipSide, push);
+                }
+                else if (attacking && enemy.blocking) {
+                    gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.left * 2.5f * push, ForceMode2D.Impulse);
+                    Instantiate(blockFlash, attackPoint.position, Quaternion.identity);
+                }
             }
         }
     }

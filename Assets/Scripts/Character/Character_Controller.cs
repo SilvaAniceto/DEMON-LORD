@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Character_Controller : MonoBehaviour
 {
-    private float moveInput;
+    [HideInInspector] public float moveInput;
     [SerializeField] private float speed = 4.5f;
     [SerializeField] private float jumpForce = 15.0f;
 
     [SerializeField] private Animator animator;
 
     public bool grounded = true;
-    [SerializeField] private bool rolling = true;
+    //[SerializeField] private bool rolling = true;
     [SerializeField] private bool wallSliding = false;
 
     [HideInInspector] public bool flipSide = false;
@@ -34,17 +34,10 @@ public class Character_Controller : MonoBehaviour
         }
         else{
             animator.SetBool("Move", false);
-        }
-
-        if (Input.GetButtonDown("Roll") && rolling && grounded){
-            rolling = false;
-            StartCoroutine("Roll");  
-        }
-        
+        }   
         if (Input.GetButtonDown("Jump") && grounded){
             body.AddForce((Vector2.up * jumpForce), ForceMode2D.Impulse);
         }
-
         if (Input.GetButtonDown("Jump") && wallSliding && !grounded && moveInput == 0
             && body.velocity.y < -0.2f){
             body.AddForce((Vector2.up * jumpForce), ForceMode2D.Impulse);
@@ -57,7 +50,6 @@ public class Character_Controller : MonoBehaviour
                 Flip();
             }
         }
-
         if (body.velocity.y < -0.02 || body.velocity.y > 0.02){
             grounded = false;
         }
@@ -89,19 +81,6 @@ public class Character_Controller : MonoBehaviour
         transform.Rotate(0f, 180f, 0f);
         faceDirection *= -1;
     }
-
-    IEnumerator Roll(){
-        body.AddForce(new Vector2(moveInput * 8.0f, 0f),ForceMode2D.Impulse);
-        animator.SetBool("Roll", true);
-        GetComponent<CircleCollider2D>().enabled = false;
-
-        yield return new WaitForSeconds(0.9f);
-
-        animator.SetBool("Roll", false);
-        GetComponent<CircleCollider2D>().enabled = true;
-        rolling = true;
-    }
-
     void OnCollisionStay2D(Collision2D other){
         if (!grounded){
             wallSliding = true;
