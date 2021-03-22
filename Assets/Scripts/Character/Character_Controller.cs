@@ -7,25 +7,44 @@ public class Character_Controller : MonoBehaviour
     [HideInInspector] public float moveInput;
     [SerializeField] private float speed = 4.5f;
     [SerializeField] private float jumpForce = 15.0f;
-
-    [SerializeField] private Animator animator;
-
     public bool grounded = true;
-    //[SerializeField] private bool rolling = true;
-    [SerializeField] private bool wallSliding = false;
-
-    [HideInInspector] public bool flipSide = false;
-
-    private Rigidbody2D body;
 
     [HideInInspector] public Vector2 faceDirection = new Vector2(1,0);
+    [SerializeField] private bool wallSliding = false;
+    [HideInInspector] public bool flipSide = false;
 
-    // Start is called before the first frame update
+    [SerializeField] private Animator animator;
+    private Rigidbody2D body;    
     void Start(){
         body = GetComponent<Rigidbody2D>();        
     }
+    void Update() {
+        if (Input.GetButtonDown("Jump") && grounded) {
+            body.AddForce((Vector2.up * jumpForce), ForceMode2D.Impulse);
+        }
+        if (Input.GetButtonDown("Jump") && wallSliding && !grounded && moveInput == 0
+            && body.velocity.y < -0.2f) {
+            body.AddForce((Vector2.up * jumpForce), ForceMode2D.Impulse);
+            if (flipSide) {
+                body.AddForce((Vector2.right * 3.5f), ForceMode2D.Impulse);
+                Flip();
+            }
+            else {
+                body.AddForce((Vector2.left * 3.5f), ForceMode2D.Impulse);
+                Flip();
+            }
+        }
+        if (body.velocity.y < -0.02 || body.velocity.y > 0.02) {
+            grounded = false;
+        }
+        else {
+            grounded = true;
+        }
 
-    // Update is called once per frame
+        animator.SetFloat("Jump", body.velocity.y);
+        animator.SetBool("Grounded", grounded);
+
+    }
     void FixedUpdate(){
         moveInput = Input.GetAxisRaw("Move");
         if (moveInput != 0 && !gameObject.GetComponent<Character_Combat>().attacking){
@@ -34,39 +53,12 @@ public class Character_Controller : MonoBehaviour
         }
         else{
             animator.SetBool("Move", false);
-        }   
-        if (Input.GetButtonDown("Jump") && grounded){
-            body.AddForce((Vector2.up * jumpForce), ForceMode2D.Impulse);
-        }
-        if (Input.GetButtonDown("Jump") && wallSliding && !grounded && moveInput == 0
-            && body.velocity.y < -0.2f){
-            body.AddForce((Vector2.up * jumpForce), ForceMode2D.Impulse);
-            if (flipSide){
-                body.AddForce((Vector2.right * 3.5f), ForceMode2D.Impulse);
-                Flip();
-            }
-            else{
-                body.AddForce((Vector2.left * 3.5f), ForceMode2D.Impulse);
-                Flip();
-            }
-        }
-        if (body.velocity.y < -0.02 || body.velocity.y > 0.02){
-            grounded = false;
-        }
-        else{
-            grounded = true;
-        }
-
-        animator.SetFloat("Jump", body.velocity.y );      
-        animator.SetBool("Grounded", grounded);
-        
+        }           
     }
-
     void Moviment(float input){
         if (!gameObject.GetComponent<Character_Combat>().shieldIsUp){
             transform.Translate(Mathf.Abs(input) * speed * Time.fixedDeltaTime, 0f, 0f);
         }
-
         if (input > 0 && flipSide){
             Flip();                  
         }
@@ -74,7 +66,6 @@ public class Character_Controller : MonoBehaviour
             Flip();
         }
     }
-
     void Flip(){
         flipSide = !flipSide;
 
@@ -92,10 +83,8 @@ public class Character_Controller : MonoBehaviour
         else{
             wallSliding = false;
             animator.SetBool("WallSlide", wallSliding);            
-        }
-       
+        }       
     }
-
     void OnCollisionExit2D(Collision2D other){
         wallSliding = false;
         if (other.gameObject.CompareTag("Walls")){

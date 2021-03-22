@@ -9,13 +9,11 @@ public class Abomination_Health : MonoBehaviour, ITakeDamage
     public bool spawnSlime = false;
 
     private Rigidbody2D body;
-    [SerializeField] private Animator animator;
-    // Start is called before the first frame update
+    [SerializeField] private Animator animator;    
     void Start() {
         body = gameObject.GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
     }
-
     public void TakeDamage(int damage, bool side, Vector2 push) {
         animator.SetTrigger("Hit");
         currentHealth -= damage;

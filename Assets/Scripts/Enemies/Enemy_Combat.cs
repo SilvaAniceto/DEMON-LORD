@@ -10,8 +10,7 @@ public class Enemy_Combat : MonoBehaviour, IEnemyCombat, IDealDamage
     [SerializeField] private Animator animator;
 
     [SerializeField] private Transform attackPoint;
-    [SerializeField] private float attackRange;
-    
+    [SerializeField] private float attackRange;    
     [SerializeField] private float staminaDamage;
     private int attackDamage = 1;
     
@@ -26,12 +25,10 @@ public class Enemy_Combat : MonoBehaviour, IEnemyCombat, IDealDamage
 
     void Awake() {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-    }
-    // Start is called before the first frame update
+    }   
     void Start() {
         attackTimer = attackTime;
-    }
-    // Update is called once per frame
+    }   
     void FixedUpdate(){
         playerDistance = Mathf.Abs(transform.position.x - player.position.x);
 
@@ -54,7 +51,6 @@ public class Enemy_Combat : MonoBehaviour, IEnemyCombat, IDealDamage
             blocking = false;
             animator.SetBool("Block", blocking);
         }
-
         if (blocking) {
             if (!attacking) {
                 attackTimer -= Time.fixedDeltaTime;
@@ -69,7 +65,6 @@ public class Enemy_Combat : MonoBehaviour, IEnemyCombat, IDealDamage
         if (playerDistance < 2 && GetComponent<Enemy_Moviment>().hasSight == true && attacking == false) {
             attacking = true;
         }
-
         if (attacking) {
             animator.SetBool("Move", false);
             attackTimer -= Time.fixedDeltaTime;

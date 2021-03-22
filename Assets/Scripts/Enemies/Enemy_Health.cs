@@ -8,10 +8,8 @@ public class Enemy_Health : MonoBehaviour, ITakeDamage
     [SerializeField] private int currentHealth;
 
     private Rigidbody2D body;
-    [SerializeField] private Animator animator;
-    // Start is called before the first frame update
-    void Start()
-    {
+    [SerializeField] private Animator animator;    
+    void Start(){
         body = gameObject.GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
     }

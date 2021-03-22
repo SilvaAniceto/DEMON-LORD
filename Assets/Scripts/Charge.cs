@@ -6,8 +6,6 @@ public class Charge : MonoBehaviour
 {
     Rigidbody2D rgbd2;
     float destroyTime = 3.0f;
-
-
     void Awake() {
         rgbd2 = GetComponent<Rigidbody2D>();
     }
@@ -16,11 +14,9 @@ public class Charge : MonoBehaviour
         if (destroyTime <= 0f)
             Destroy(gameObject);
     }
-
     public void ChargeShoot(Vector2 dir) {
-        rgbd2.AddForce(dir * 100.0f,ForceMode2D.Force);
+        rgbd2.AddForce(dir * 75.0f,ForceMode2D.Force);
     }
-
     void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.tag == "Player") {
             Character_Combat p = other.GetComponent<Character_Combat>();

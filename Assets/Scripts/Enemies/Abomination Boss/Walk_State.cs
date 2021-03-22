@@ -7,9 +7,7 @@ public class Walk_State : StateMachineBehaviour
     Transform player;
     Rigidbody2D rb;
     float speed;
-    Abomination_Moviment boss;    
-
-    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
+    Abomination_Moviment boss;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -17,8 +15,6 @@ public class Walk_State : StateMachineBehaviour
         boss = animator.GetComponent<Abomination_Moviment>();
         speed = boss.moveSpeed;       
     }
-
-    // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         boss.Flip();
@@ -34,8 +30,6 @@ public class Walk_State : StateMachineBehaviour
             animator.SetTrigger("PowerAttack");
         }
     }
-
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.ResetTrigger("Attack");

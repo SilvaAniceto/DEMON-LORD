@@ -19,16 +19,13 @@ public class HuD_Script : MonoBehaviour
     void Awake() {
         instance = this;
     }
-
     void Start() {
         healthSize = maskHealth.rectTransform.rect.width;
         staminaSize = maskStamina.rectTransform.rect.width;
     }
-
     public void HealthValue(float value) {
         healthBar.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, healthSize * value);
     }
-
     public void StaminaValue(float value) {
         staminaBar.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, staminaSize * value);
     }

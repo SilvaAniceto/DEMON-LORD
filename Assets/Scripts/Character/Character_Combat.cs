@@ -8,19 +8,14 @@ public class Character_Combat : MonoBehaviour, IDealDamage
     [HideInInspector] public Rigidbody2D body;
 
     [SerializeField] private bool comboEnabled = false;
-
-    private int attackDamage = 1;
-
-    [HideInInspector] public bool shieldIsUp;
     [SerializeField] private bool rolling = true;
-    [HideInInspector] public bool attacking;
-
     [SerializeField] private Transform attackPoint;
-
+    [HideInInspector] public bool shieldIsUp;
+    [HideInInspector] public bool attacking;
+    private int attackDamage = 1;
     private float swordRange = 0.8f;
 
     [HideInInspector] public Vector2 push;
-
     [SerializeField] private GameObject blockFlash;
 
     [SerializeField] private float maxHealth;
@@ -31,19 +26,17 @@ public class Character_Combat : MonoBehaviour, IDealDamage
     [SerializeField] private float staminaCost;
 
     [SerializeField] private float time;
-    [SerializeField] private float timer;
-
-
-    // Start is called before the first frame update
+    [SerializeField] private float timer;    
     void Start(){
         currentHealth = maxHealth;
         currentStamina = maxStamina;
         body = gameObject.GetComponent<Rigidbody2D>();
     }
+    void Update(){        
+        HuD_Script.instance.StaminaValue(currentStamina / maxStamina);
 
-    // Update is called once per frame
-    void FixedUpdate(){        
         push = gameObject.GetComponent<Character_Controller>().faceDirection;
+
         if (Input.GetButtonDown("Attack") && GetComponent<Character_Controller>().grounded == true)
         {
             if (currentStamina >= 1.0f) {
@@ -60,17 +53,15 @@ public class Character_Combat : MonoBehaviour, IDealDamage
                 timer = time;
                 rolling = false;
                 StartCoroutine("Roll");
-            }
-            
+            }            
         }
 
         if (currentStamina < maxStamina) {
-            timer -= Time.fixedDeltaTime;
+            timer -= Time.deltaTime;
             if (timer <= 0) {
-                currentStamina += Time.fixedDeltaTime * 2;                
+                currentStamina += Time.deltaTime * 2;                
             }
         }
-        HuD_Script.instance.StaminaValue(currentStamina / maxStamina);
 
         if (comboEnabled)
         {
@@ -112,7 +103,6 @@ public class Character_Combat : MonoBehaviour, IDealDamage
 
     }
     public void DealDamage(){        
-        
         Collider2D[] hit = Physics2D.OverlapCircleAll(attackPoint.position, swordRange, LayerMask.GetMask("Enemies"));
         foreach (Collider2D e in hit) {
             if (hit != null) {             
@@ -128,7 +118,6 @@ public class Character_Combat : MonoBehaviour, IDealDamage
             }
         }
     }
-
     public void DamageTaken(int damage, float stamina) {
         if (shieldIsUp) {
             animator.SetTrigger("Block");
