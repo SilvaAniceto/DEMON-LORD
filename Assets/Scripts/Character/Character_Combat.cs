@@ -13,17 +13,17 @@ public class Character_Combat : MonoBehaviour, IDealDamage
     [HideInInspector] public bool shieldIsUp;
     [HideInInspector] public bool attacking;
     private int attackDamage = 1;
-    private float swordRange = 0.8f;
+    [SerializeField] private float swordRange = 0.8f;
 
     [HideInInspector] public Vector2 push;
     [SerializeField] private GameObject blockFlash;
 
     [SerializeField] private float maxHealth;
-    [SerializeField] private float currentHealth;
+    private float currentHealth;
 
     [SerializeField] private float maxStamina;
-    [SerializeField] private float currentStamina;
-    [SerializeField] private float staminaCost;
+    private float currentStamina;
+    private float staminaCost;
 
     [SerializeField] private float time;
     [SerializeField] private float timer;    
