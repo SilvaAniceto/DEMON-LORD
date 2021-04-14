@@ -118,7 +118,7 @@ Transform:
   m_GameObject: {fileID: 7677864454179493707}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.84, y: -4.83, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7677864453115208227}
   - {fileID: 7677864454074028275}
@@ -244,14 +244,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06cb6a447ad066440bc852c041ff6927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveInput: 0
   speed: 4.5
   jumpForce: 15
-  animator: {fileID: 7677864454179481780}
   grounded: 1
-  rolling: 1
+  faceDirection: {x: 1, y: 0}
   wallSliding: 0
   flipSide: 0
-  faceDirection: {x: 1, y: 0}
+  animator: {fileID: 7677864454179481780}
 --- !u!114 &7677864454179481779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,9 +267,10 @@ MonoBehaviour:
   animator: {fileID: 7677864454179481780}
   body: {fileID: 0}
   comboEnabled: 0
+  rolling: 1
+  attackPoint: {fileID: 7677864453115208227}
   shieldIsUp: 0
   attacking: 0
-  attackPoint: {fileID: 7677864453115208227}
   push: {x: 0, y: 0}
   blockFlash: {fileID: 5747493967257253543, guid: a1695a361f3d2f34baf724059dbe91cc,
     type: 3}
@@ -277,5 +278,6 @@ MonoBehaviour:
   currentHealth: 0
   maxStamina: 3
   currentStamina: 0
+  staminaCost: 0
   time: 1
   timer: 0
