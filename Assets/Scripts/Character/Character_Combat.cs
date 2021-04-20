@@ -9,6 +9,7 @@ public class Character_Combat : MonoBehaviour, IDealDamage
 
     [SerializeField] private bool comboEnabled = false;
     [SerializeField] private bool rolling = true;
+    [SerializeField] private float rollForce;
     [SerializeField] private Transform attackPoint;
     [HideInInspector] public bool shieldIsUp;
     [HideInInspector] public bool attacking;
@@ -84,14 +85,14 @@ public class Character_Combat : MonoBehaviour, IDealDamage
         }         
     }
     IEnumerator Roll() {
-        body.AddForce(new Vector2(GetComponent<Character_Controller>().moveInput * 8.0f, 0f), ForceMode2D.Impulse);
+        body.AddForce(new Vector2(GetComponent<Character_Controller>().moveInput * rollForce, 0f), ForceMode2D.Impulse);
         animator.SetBool("Roll", true);
-        GetComponent<CircleCollider2D>().enabled = false;
+        GetComponent<BoxCollider2D>().enabled = false;
 
         yield return new WaitForSeconds(0.9f);
 
         animator.SetBool("Roll", false);
-        GetComponent<CircleCollider2D>().enabled = true;
+        GetComponent<BoxCollider2D>().enabled = true;
         rolling = true;
     }
     IEnumerator Attacking(){
