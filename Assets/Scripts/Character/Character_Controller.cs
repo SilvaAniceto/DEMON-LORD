@@ -24,18 +24,16 @@ public class Character_Controller : MonoBehaviour
         if (Input.GetButtonDown("Jump") && grounded) {
             body.AddForce((Vector2.up * jumpForce), ForceMode2D.Impulse);
         }
-        else if (Input.GetButtonDown("Jump") && wallSliding && moveInput != 0) {
-            body.AddForce(new Vector2(-faceDirection.x * wallJumpForce, jumpForce * 1.2f ), ForceMode2D.Impulse);
-        }
+        
         if (Input.GetButtonDown("Jump") && wallSliding && !grounded && moveInput == 0
             && body.velocity.y < -0.2f) {
-            body.AddForce((Vector2.up * jumpForce), ForceMode2D.Impulse);
+            body.AddForce((Vector2.up * jumpForce * 1.2f), ForceMode2D.Impulse);
             if (flipSide) {
-                body.AddForce((Vector2.right * 3.5f), ForceMode2D.Impulse);
+                body.AddForce((Vector2.right * wallJumpForce), ForceMode2D.Impulse);
                 Flip();
             }
             else {
-                body.AddForce((Vector2.left * 3.5f), ForceMode2D.Impulse);
+                body.AddForce((Vector2.left * wallJumpForce), ForceMode2D.Impulse);
                 Flip();
             }
         }

@@ -89,9 +89,9 @@ GameObject:
   - component: {fileID: 7677864454179481781}
   - component: {fileID: 7677864454179481780}
   - component: {fileID: 7677864454179481776}
+  - component: {fileID: 334846015178072311}
   - component: {fileID: 7677864454179481783}
   - component: {fileID: 8405875027513382103}
-  - component: {fileID: 334846015178072311}
   m_Layer: 9
   m_Name: Hero Knight
   m_TagString: Player
@@ -153,9 +153,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 909376917
-  m_SortingLayer: 2
-  m_SortingOrder: 10
+  m_SortingLayerID: -1369150501
+  m_SortingLayer: 3
+  m_SortingOrder: 0
   m_Sprite: {fileID: -7357797988063737743, guid: e40a8d5f20a9c674e987d968e0d2ab79,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -208,56 +208,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &7677864454179481783
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7677864454179493707}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06cb6a447ad066440bc852c041ff6927, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveInput: 0
-  speed: 4.5
-  jumpForce: 16
-  wallJumpForce: 0
-  grounded: 1
-  faceDirection: {x: 1, y: 0}
-  wallSliding: 0
-  flipSide: 0
-  rollPoint: {fileID: 7677864454074028275}
-  animator: {fileID: 7677864454179481780}
---- !u!114 &8405875027513382103
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7677864454179493707}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae2932e32a634f94bbab526df6ccfa5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 7677864454179481780}
-  body: {fileID: 0}
-  comboEnabled: 0
-  rolling: 1
-  rollForce: 10
-  attackPoint: {fileID: 7677864453115208227}
-  shieldIsUp: 0
-  attacking: 0
-  swordRange: 0.8
-  push: {x: 0, y: 0}
-  blockFlash: {fileID: 5747493967257253543, guid: a1695a361f3d2f34baf724059dbe91cc,
-    type: 3}
-  maxHealth: 3
-  maxStamina: 3
-  time: 0.8
-  timer: 0
 --- !u!61 &334846015178072311
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -284,3 +234,53 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.2067194, y: 1.211101}
   m_EdgeRadius: 0
+--- !u!114 &7677864454179481783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7677864454179493707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06cb6a447ad066440bc852c041ff6927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveInput: 0
+  speed: 5
+  jumpForce: 17
+  wallJumpForce: 8
+  grounded: 1
+  faceDirection: {x: 1, y: 0}
+  wallSliding: 0
+  flipSide: 0
+  rollPoint: {fileID: 7677864454074028275}
+  animator: {fileID: 7677864454179481780}
+--- !u!114 &8405875027513382103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7677864454179493707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2932e32a634f94bbab526df6ccfa5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 7677864454179481780}
+  body: {fileID: 0}
+  comboEnabled: 0
+  rolling: 1
+  rollForce: 12
+  attackPoint: {fileID: 7677864453115208227}
+  shieldIsUp: 0
+  attacking: 0
+  swordRange: 0.8
+  push: {x: 0, y: 0}
+  blockFlash: {fileID: 5747493967257253543, guid: a1695a361f3d2f34baf724059dbe91cc,
+    type: 3}
+  maxHealth: 3
+  maxStamina: 3
+  time: 0.8
+  timer: 0

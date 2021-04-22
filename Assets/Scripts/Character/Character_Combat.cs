@@ -131,7 +131,7 @@ public class Character_Combat : MonoBehaviour, IDealDamage
             if (currentHealth <= 0) {
                 animator.SetTrigger("Die");
                 gameObject.GetComponent<Character_Controller>().enabled = false;
-                gameObject.GetComponent<CircleCollider2D>().enabled = false;
+                gameObject.GetComponent<BoxCollider2D>().enabled = false;
                 this.enabled = false;
             }
         }

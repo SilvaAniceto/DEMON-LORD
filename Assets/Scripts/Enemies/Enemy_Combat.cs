@@ -14,7 +14,7 @@ public class Enemy_Combat : MonoBehaviour, IEnemyCombat, IDealDamage
     [SerializeField] private float staminaDamage;
     private int attackDamage = 1;
     
-    [HideInInspector] public bool attacking;
+    public bool attacking;
     public bool blocking { get; set; }
 
     [SerializeField] private Transform player;
@@ -22,12 +22,15 @@ public class Enemy_Combat : MonoBehaviour, IEnemyCombat, IDealDamage
 
     [SerializeField] private float attackTime;
     private float attackTimer;
+    [SerializeField] private float blockTime;
+    private float blockTimer;
 
     void Awake() {
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }   
     void Start() {
         attackTimer = attackTime;
+        blockTimer = blockTime;
     }   
     void FixedUpdate(){
         playerDistance = Mathf.Abs(transform.position.x - player.position.x);
@@ -48,36 +51,49 @@ public class Enemy_Combat : MonoBehaviour, IEnemyCombat, IDealDamage
             animator.SetBool("Block", blocking);
         }
         else {
-            blocking = false;
+            blocking = false;            
             animator.SetBool("Block", blocking);
         }
         if (blocking) {
-            if (!attacking) {
-                attackTimer -= Time.fixedDeltaTime;
-                if (attackTimer <= 0) {
-                    blocking = false;
-                    StartCoroutine("Attack");
-                }
+            attackTimer -= Time.fixedDeltaTime;
+            if (attackTimer <= 0) {
+                attacking = true;
+                animator.SetTrigger("attack");
+                attackTimer = attackTime;
             }
         }
+        if (attacking) {
+            blockTimer -= Time.fixedDeltaTime;
+            if (blockTimer <= 0) {
+                attacking = false;
+                blockTimer = blockTime;
+            }
+        }
+        
     }
     public void SpearCombat() {
-        if (playerDistance < 2 && GetComponent<Enemy_Moviment>().hasSight == true && attacking == false) {
+        if (playerDistance < 3.5 && GetComponent<Enemy_Moviment>().hasSight == true && attacking == false) {
             attacking = true;
         }
         if (attacking) {
             animator.SetBool("Move", false);
             attackTimer -= Time.fixedDeltaTime;
             if (attackTimer < 0) {
-                StartCoroutine("Attack");
+                animator.SetTrigger("attack");
+                attackTimer = attackTime;
+                attacking = false;
             }
         }
     }
-    public void SlimeCombat() {
+    public void SlimeCombat() {        
         if (playerDistance < 3 && GetComponent<Enemy_Moviment>().hasSight == true && attacking == false) {
-            attacking = true;
-            StartCoroutine("Attack");
-        }
+            attackTimer -= Time.fixedDeltaTime;
+            if (attackTimer < 0) {
+                animator.SetTrigger("attack");
+                attackTimer = attackTime;
+                attacking = false;
+            }
+        }       
     }
     public void DealDamage() {
         Collider2D hit = Physics2D.OverlapCircle(attackPoint.position, attackRange, LayerMask.GetMask("Player"));
@@ -85,17 +101,7 @@ public class Enemy_Combat : MonoBehaviour, IEnemyCombat, IDealDamage
             Character_Combat p = hit.GetComponent<Character_Combat>();
             p.DamageTaken(attackDamage, staminaDamage);
         }
-    }
-    public IEnumerator Attack() {
-        attacking = true;
-        animator.SetBool("Attack", attacking);
-        attackTimer = attackTime;
-
-        yield return new WaitForSeconds(attackTime);
-
-        attacking = false;
-        animator.SetBool("Attack", attacking);
-    }    
+    }       
     private void OnDrawGizmos() {
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }

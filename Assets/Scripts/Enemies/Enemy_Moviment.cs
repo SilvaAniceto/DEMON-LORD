@@ -23,7 +23,7 @@ public class Enemy_Moviment : MonoBehaviour
     void Start(){
         timer = changeTime;
     }
-    void FixedUpdate() {
+    void Update() {
         backSightRange = transform.position.x - backLine.position.x;
         RaycastHit2D backSight = Physics2D.Raycast(transform.position, Vector2.left, backSightRange, LayerMask.GetMask("Player"));
         if (backSight.collider != null) {
@@ -58,14 +58,12 @@ public class Enemy_Moviment : MonoBehaviour
         }
 
         if (moviment == Moviment.Steady) {
-            if (hasSight) {
-                transform.Translate(moveSpeed * Time.fixedDeltaTime, 0f, 0f);
-            }
+            return;
         }
     }
     public void Patrol() {
         animator.SetBool("Move", true);
-        transform.Translate(moveSpeed * Time.fixedDeltaTime, 0f, 0f);
+        transform.Translate(moveSpeed * Time.deltaTime, 0f, 0f);
         timer -= Time.fixedDeltaTime;
         if (timer <= 0) {
             transform.Rotate(0f, 180f, 0f);
@@ -73,7 +71,7 @@ public class Enemy_Moviment : MonoBehaviour
         }
     }
     public void Move() {
-        transform.Translate(moveSpeed * Time.fixedDeltaTime, 0f, 0f);
+        transform.Translate(moveSpeed * Time.deltaTime, 0f, 0f);
         animator.SetBool("Move", true);
     }
     private void OnDrawGizmos() {

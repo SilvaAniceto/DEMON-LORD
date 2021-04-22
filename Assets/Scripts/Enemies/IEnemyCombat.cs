@@ -4,7 +4,5 @@ using UnityEngine;
 
 public interface IEnemyCombat 
 {
-    bool blocking { get; set; }  
-
-    IEnumerator Attack();
+    bool blocking { get; set; }      
 }

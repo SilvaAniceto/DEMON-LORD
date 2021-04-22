@@ -47,6 +47,12 @@ TagManager:
   - name: Background
     uniqueID: 2752114049
     locked: 0
+  - name: Misc Background
+    uniqueID: 2165408319
+    locked: 0
+  - name: Player
+    uniqueID: 2925816795
+    locked: 0
   - name: Middleground
     uniqueID: 909376917
     locked: 0
